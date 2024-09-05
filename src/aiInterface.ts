@@ -17,10 +17,13 @@ export async function startMessageProcessor() {
       ` [*] Waiting for messages in '${receiveQueue}'. To exit press CTRL+C`
     );
     channel.consume(receiveQueue, async (msg: amqp.ConsumeMessage | null) => {
+      
       if (msg) {
         const content = msg.content.toString();
         const contentSplit = JSON.parse(content);
-
+        console.log(
+          ` [*] Received message ${contentSplit[1]}`, '\n', `[*] Waiting for messages in '${receiveQueue}'. To exit press CTRL+C`
+        );
         const response = await promptSubUUID(
           "Generate five viva questions based on this document that assess: the student's understanding of the material, their ability to discuss the concepts, and their capacity to expand on the ideas.",
           contentSplit[0],
@@ -29,12 +32,13 @@ export async function startMessageProcessor() {
         const sendMsg = Buffer.from(JSON.stringify([response[0],response[1]]));
         channel.sendToQueue(sendQueue, sendMsg);
         channel.ack(msg);
+
       }
     });
   } catch (error) {
     console.error("Error:", error);
   }
 }
-startMessageProcessor();
+//startMessageProcessor();
 
 // ------------------- debugging --------------------//
