@@ -1,0 +1,15 @@
+{
+    "extends": "./tsconfig.json",  // Extend the main TypeScript config
+    "compilerOptions": {
+      "rootDir": ".",  // The root directory of the test environment, which should be the top-level directory of your project
+      "outDir": "./dist",  // Output directory for compiled test files (optional, only if you want to compile tests)
+      "module": "commonjs",  // Module system for Node.js compatibility
+      "target": "es6",  // Target ES version for your tests (usually matches your project target)
+      "esModuleInterop": true,  // Enable compatibility for ES module imports
+      "skipLibCheck": true,  // Skip type checking for node_modules to speed up test runs
+      "types": ["jest", "node"]  // Include Jest and Node types for type checking
+    },
+    "include": ["tests/**/*.ts", "tests/**/*.tsx", "src/**/*.ts", "src/**/*.tsx"],  // Include both test and source files
+    "exclude": ["node_modules"]  // Exclude node_modules to prevent unnecessary type checking
+  }
+  
