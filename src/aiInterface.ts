@@ -39,6 +39,6 @@ export async function startMessageProcessor() {
     console.error("Error:", error);
   }
 }
-//startMessageProcessor();
+startMessageProcessor();
 
 // ------------------- debugging --------------------//
